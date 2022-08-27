@@ -218,8 +218,6 @@ class Game(object):
         return None
 
 
-
-
 def build_menu(buttons, n_cols,
                header_buttons=None,
                footer_buttons=None):
@@ -491,19 +489,10 @@ if __name__ == '__main__':
     updater = Updater(token=TOKEN, use_context=True)
     dispatcher = updater.dispatcher
 
-    #adm = CommandHandler('sendtoall', sendtoall)
-
-    #dispatcher.add_handler(adm)
-    #adm1 = MessageHandler(Filters.forwarded, onFwd)
-    #dispatcher.add_handler(adm1)
-
     conv_handler = ConversationHandler(
         entry_points= [CommandHandler('start', start)],
         states={
             NAME: [MessageHandler(Filters.regex('^(Я согласен)$'), on_rules_accepted)],
-            #PHOTO: [MessageHandler(Filters.photo, photo), CommandHandler('skip', skip_photo)],
-            #CONFIRM1: [MessageHandler(Filters.regex('^(отлично|изменить)$'), confirm1)],
-            #CONFIRM2: [MessageHandler(Filters.regex('^(хочу познакомиться|следующая анкета)$'), confirm2)],
             DEFAULT: [MessageHandler(Filters.text, tg_ontext)],
         },
         fallbacks=[CommandHandler('cancel', cancel)],
