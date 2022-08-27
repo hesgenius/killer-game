@@ -98,7 +98,7 @@ class GamePlayer:
             return rs
         elif game.is_started():
             for x in game.players:
-                if x.secret.tolower() == cmd.tolower():
+                if x.secret.lower() == cmd.lower():
                     if self.dead or not self.ingame:
                         return "Вы умерли :("
                     if x.ply.id == self.ply.id:
@@ -179,13 +179,13 @@ class Game(object):
         for xx in self.players:
             if xx.ingame and xx.ply.id == pll.id:
                 wasAdmin = xx.admin
+                xx.ingame = False
                 if not wasAdmin and not self.is_started():
                     del self.players[self.players.index(xx)]
                     self.admin_msg("Игрок " + pll.asString() + " вышел из игры")
                 elif not xx.dead:
                     self.admin_msg("Игрок " + pll.asString() + " вышел из игры")
                     xx.dead = True
-                xx.ingame = False
                 usr = db_getplayer(pll.id)
                 pll.game = usr.game = 0
                 db_saveplayer(usr)
